@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="lo">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lao IT Learning</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+  <header>
+    <h1>🌐 Lao IT Learning</h1>
+    <p>"Learn Network, IT Support & Programming</p>
+
+  </header>
+
+<nav>
+  <a href="#home">Home</a>
+  <a href="#courses">Courses</a>
+  <a href="#about">About</a>
+
+  <div id="navGuest">
+    <button onclick="showAuthForm('login')">
+      Login
+    </button>
+
+    <button onclick="showAuthForm('register')">
+      Register
+    </button>
+  </div>
+
+  <div id="navStudent" style="display:none;">
+    <span id="navStudentName"></span>
+
+    <button onclick="logoutStudent()">
+      Logout
+    </button>
+  </div>
+</nav>
+
+  <section id="authSection" style="display:none;">
+  <h2>👤 Student Account</h2>
+
+  <input
+    type="text"
+    id="fullName"
+    placeholder="ຊື່ນັກຮຽນ"
+  >
+
+  <input
+    type="email"
+    id="studentEmail"
+    placeholder="Email"
+  >
+
+  <input
+    type="password"
+    id="studentPassword"
+    placeholder="Password"
+  >
+
+
+<div id="authButtons">
+  <button id="registerButton" onclick="registerStudent()">
+    ສະໝັກສະມາຊິກ
+  </button>
+
+  <button id="loginButton" onclick="loginStudent()">
+    ເຂົ້າສູ່ລະບົບ
+  </button>
+<button
+  id="forgotPasswordButton"
+  onclick="showForgotPassword()"
+  style="display:none;">
+  Forgot Password?
+</button>
+  <button id="cancelButton" onclick="cancelAuthForm()">
+    ຍົກເລີກ
+  </button>
+</div>
+
+
+  <p id="authMessage"></p>
+    
+<div id="resetPasswordForm" style="display:none;">
+  <h3>🔐 ຕັ້ງ Password ໃໝ່</h3>
+
+  <input
+    type="password"
+    id="newPassword"
+    placeholder="Password ໃໝ່ (ຢ່າງໜ້ອຍ 8 ຕົວ)"
+  >
+
+  <input
+    type="password"
+    id="confirmPassword"
+    placeholder="ຢືນຢັນ Password ໃໝ່"
+  >
+
+  <button onclick="updateStudentPassword()">
+    💾 ບັນທຶກ Password ໃໝ່
+  </button>
+
+  <p id="resetPasswordMessage"></p>
+</div>
+
+</section>
+    
+<!-- Student Dashboard -->
+<section id="studentDashboard" style="display:none;">
+
+  <h2>🎓 Student Dashboard</h2>
+<button onclick="showProfileForm()">
+  👤 Edit Profile
+</button>
+
+<div id="profileForm" style="display:none;">
+
+  <h3>👤 Student Profile</h3>
+
+  <input
+    type="text"
+    id="profileFullName"
+    placeholder="ປ້ອນຊື່ໃໝ່"
+  >
+
+  <button onclick="updateStudentProfile()">
+    💾 Save Profile
+  </button>
+
+  <button onclick="hideProfileForm()">
+    ❌ Cancel
+  </button>
+
+  <p id="profileMessage"></p>
+
+</div>
+  <p>👤 ຊື່ນັກຮຽນ:</p>
+  <h3 id="dashboardName"></h3>
+
+  <p>📧 Email:</p>
+  <p id="dashboardEmail"></p>
+
+  <p id="dashboardMessage"></p>
+  
+<div id="dashboardScoreSummary">
+  <h3>🏆 ຄະແນນລວມຂອງຂ້ອຍ</h3>
+  <p id="dashboardTotalScore">ກຳລັງໂຫຼດ...</p>
+  <p id="dashboardCompletedCourses">ວິຊາທີ່ທົດສອບ: 0 / 6</p>
+</div>
+
+<div id="dashboardProgress">
+  <p>📈 ຄວາມຄືບໜ້າການຮຽນ</p>
+
+  <div class="progress-track">
+    <div id="dashboardProgressBar"
+         class="progress-fill"
+         style="width:0%;">
+    </div>
+  </div>
+
+  <p id="dashboardProgressText">0%</p>
+</div>
+
+<button onclick="showScorePage()">
+  🏆 ເບິ່ງຄະແນນຂອງຂ້ອຍ
+</button>
+  <div id="dashboardMyScores" style="display:none;">
+
+  <h3>🏆 My Quiz Scores</h3>
+
+  <div id="dashboardScoreList"></div>
+
+  <h3 id="dashboardScoreTotal"></h3>
+
+</div>
+</section>
+
+
+ <section id="home" class="hero">
+    <h2>ຮຽນຮູ້ IT ເປັນພາສາລາວ</h2>
+    <p>ຮຽນ Computer, Network ແລະ Programming ໄປນຳກັນ!</p>
+  </section>
+   <div class="search-box">
+    <input
+    type="text"
+    id="searchInput"
+    placeholder="ຄົ້ນຫາບົດຮຽນ IT..."
+    />
+  </div>
+    <section >
+    <article>
+     <h3>💻 Computer Basic</h3>
+      <p>ພື້ນຖານການໃຊ້ຄອມພິວເຕີ</p>
+
+    <button class="lesson-btn"
+        onclick="openLesson('computer')">
+  ເບິ່ງບົດຮຽນ →
+    </button>
+      </article>
+      <article>
+        <h3>🌐 Network Basic</h3>
+        <p>ຮຽນຮູ້ລະບົບເຄືອຂ່າຍ</p>
+        <button class="lesson-btn" onclick="openLesson('network')"> ເບິ່ງບົດຮຽນ →
+        </button>
+      </article>
+      <article>
+  <h3>📡 Router & Wi-Fi</h3>
+  <p>ຕັ້ງຄ່າ Router ແລະ Wi-Fi</p>
+
+        <button class="lesson-btn"
+          onclick="openLesson('router')">
+    ເບິ່ງບົດຮຽນ →
+        </button>
+      </article>
+      <article>
+        <h3>🛠️ IT Support</h3>
+        <p>ວິທີແກ້ໄຂບັນຫາ IT</p>
+        <button class="lesson-btn"
+        onclick="openLesson('support')">
+  ເບິ່ງບົດຮຽນ →
+        </button>
+      </article>
+      <article>
+        <h3>🐍 Python Basic</h3>
+        <p>ເລີ່ມຕົ້ນຂຽນໂປຣແກຣມ</p>
+        <button class="lesson-btn"
+        onclick="openLesson('python')">
+  ເບິ່ງບົດຮຽນ →
+         </button>
+      </article>
+      <article>
+        <h3>🌍 Web Development</h3>
+        <p>ຮຽນສ້າງ Website</p>
+  <button class="lesson-btn"
+        onclick="openLesson('web')">
+  ເບິ່ງບົດຮຽນ →
+  </button>
+      </article>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>About Lao IT Learning</h2>
+    <p>ແຫຼ່ງຮຽນຮູ້ດ້ານ IT ສຳລັບຄົນລາວ.</p>
+  </section>
+
+<section id="lessonContent" class="lesson-content"
+         style="display:none;">
+  <h2 id="lessonTitle"></h2>
+  <div id="lessonBody"></div>
+
+  <button onclick="closeLesson()">
+    ← ກັບຄືນບົດຮຽນ
+  </button>
+</section>
+
+<section id="scorePage" style="display:none;">
+
+  <h2>🏆 My Quiz Scores</h2>
+
+  <div id="scoreList"></div>
+
+  <h3 id="totalScore"></h3>
+
+  <button onclick="closeScorePage()">
+    ← ກັບໜ້າຫຼັກ
+  </button>
+
+</section>
+
+  <footer>
+    <p>© 2026 Lao IT Learning</p>
+  </footer>
+</div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./script.js"></script>
+
+</body>
+</html>
