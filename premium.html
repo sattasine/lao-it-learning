@@ -97,5 +97,73 @@
 
     <a href="index.html">ກັບໜ້າຫຼັກ</a>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./script.js"></script>
+  
+<script>
+document.getElementById("premiumPaymentForm")
+  ?.addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const message = document.getElementById("paymentMessage");
+    const fileInput = document.getElementById("paymentProof");
+    const file = fileInput.files[0];
+
+    message.textContent = "ກຳລັງກວດສອບ...";
+
+    try {
+      const { data: { user }, error: userError } =
+        await supabaseClient.auth.getUser();
+
+      if (userError || !user) {
+        message.textContent = "ກະລຸນາ Login ກ່ອນສົ່ງຫຼັກຖານ";
+        return;
+      }
+
+      if (!file || !["image/jpeg", "image/png"].includes(file.type)) {
+        message.textContent = "ກະລຸນາເລືອກຮູບ JPG ຫຼື PNG";
+        return;
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        message.textContent = "ຮູບຕ້ອງມີຂະໜາດບໍ່ເກີນ 5MB";
+        return;
+      }
+
+      const extension = file.type === "image/png" ? "png" : "jpg";
+      const filePath = user.id + "/" + crypto.randomUUID() + "." + extension;
+
+      const { error: uploadError } = await supabaseClient
+        .storage
+        .from("premium-payment-proofs")
+        .upload(filePath, file, {
+          contentType: file.type,
+          upsert: false
+        });
+
+      if (uploadError) throw uploadError;
+
+      const { error: insertError } = await supabaseClient
+        .from("premium_payment_requests")
+        .insert({
+          user_id: user.id,
+          amount_lak: 50000,
+          status: "pending",
+          proof_path: filePath
+        });
+
+      if (insertError) throw insertError;
+
+      message.textContent =
+        "ສົ່ງຫຼັກຖານສຳເລັດ! ກະລຸນາລໍຖ້າ Admin ກວດຢືນຢັນ.";
+
+      fileInput.value = "";
+    } catch (error) {
+      console.error(error);
+      message.textContent =
+        "ສົ່ງບໍ່ສຳເລັດ. ກະລຸນາກວດ Login ແລະລອງໃໝ່.";
+    }
+});
+</script>
 </body>
 </html>
