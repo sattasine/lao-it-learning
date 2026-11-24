@@ -1,4 +1,3 @@
-alert("admin.js loaded");
 const adminLoginBtn = document.getElementById("adminLoginBtn");
 const adminLogoutBtn = document.getElementById("adminLogoutBtn");
 const adminMessage = document.getElementById("adminMessage");
