@@ -11,12 +11,6 @@
   <main class="container">
     <h1>⭐ Admin Dashboard</h1>
     <p>ຈັດການຄຳຂໍສະໝັກ Premium</p>
-    <div class="admin-filters">
-  <button onclick="filterRequests('all')">ທັງໝົດ</button>
-  <button onclick="filterRequests('pending')">ລໍຖ້າກວດ</button>
-  <button onclick="filterRequests('approved')">ອະນຸມັດແລ້ວ</button>
-  <button onclick="filterRequests('rejected')">ປະຕິເສດ</button>
-</div>
 <button id="adminLogoutBtn" hidden>Logout</button>
 
     <p id="adminMessage"></p>
@@ -45,6 +39,12 @@
     <strong id="rejectedRequests">0</strong>
   </div>
 
+</div>
+      <div class="admin-filters">
+  <button onclick="filterRequests('all')">ທັງໝົດ</button>
+  <button onclick="filterRequests('pending')">ລໍຖ້າກວດ</button>
+  <button onclick="filterRequests('approved')">ອະນຸມັດແລ້ວ</button>
+  <button onclick="filterRequests('rejected')">ປະຕິເສດ</button>
 </div>
 
       <h2>ລາຍການສະໝັກ Premium</h2>
