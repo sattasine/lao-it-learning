@@ -56,6 +56,20 @@ async function loadPremiumRequests() {
     return;
   }
 
+  
+  // ຄຳນວນຈຳນວນຄຳຂໍ
+  document.getElementById("totalRequests").textContent =
+    data.length;
+
+  document.getElementById("pendingRequests").textContent =
+    data.filter(item => item.status === "pending").length;
+
+  document.getElementById("approvedRequests").textContent =
+    data.filter(item => item.status === "approved").length;
+
+  document.getElementById("rejectedRequests").textContent =
+    data.filter(item => item.status === "rejected").length;
+
   requestList.replaceChildren();
 
   if (!data || data.length === 0) {
