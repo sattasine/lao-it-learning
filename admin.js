@@ -11,7 +11,6 @@ async function checkAdmin() {
 
   if (error || !user) {
     adminPanel.hidden = true;
-    adminLoginBtn.hidden = false;
     adminLogoutBtn.hidden = true;
     adminMessage.textContent = "ກະລຸນາ Login Admin";
     return false;
@@ -28,8 +27,6 @@ async function checkAdmin() {
     adminMessage.textContent = "ບັນຊີນີ້ບໍ່ມີສິດ Admin";
     return false;
   }
-
-  adminLoginBtn.hidden = true;
   adminLogoutBtn.hidden = false;
   adminPanel.hidden = false;
   adminMessage.textContent = "Login Admin ສຳເລັດ";
@@ -138,30 +135,6 @@ async function loadPremiumRequests() {
     requestList.appendChild(card);
   }
 }
-
-adminLoginBtn.addEventListener("click", async () => {
-  const email = prompt("Admin Email:");
-  if (!email) return;
-
-  const password = prompt("Admin Password:");
-  if (!password) return;
-
-  adminMessage.textContent = "ກຳລັງ Login...";
-
-  const { error } = await supabaseClient.auth.signInWithPassword({
-    email: email.trim(),
-    password
-  });
-
-  if (error) {
-    adminMessage.textContent = "Login ບໍ່ສຳເລັດ";
-    return;
-  }
-
-  if (await checkAdmin()) {
-    loadPremiumRequests();
-  }
-});
 
 adminLogoutBtn.addEventListener("click", async () => {
   await supabaseClient.auth.signOut();
