@@ -1371,6 +1371,7 @@ async function registerStudent() {
 }
 
 // Student Login
+
 async function loginStudent() {
   const email = document.getElementById("studentEmail").value.trim();
   const password = document.getElementById("studentPassword").value;
@@ -1394,6 +1395,26 @@ async function loginStudent() {
 
   const user = data.user;
 
+  // ກວດສອບສິດ Admin
+  const { data: adminData, error: adminError } =
+    await supabaseClient
+      .from("admin_users")
+      .select("user_id")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+  if (adminError) {
+    message.textContent = "ກວດສອບສິດ Admin ບໍ່ສຳເລັດ";
+    return;
+  }
+
+  // ຖ້າເປັນ Admin ໃຫ້ໄປ Admin Dashboard
+  if (adminData) {
+    window.location.href = "admin.html";
+    return;
+  }
+
+  // ຖ້າເປັນນັກຮຽນ
   const { error: profileError } = await supabaseClient
     .from("students")
     .upsert({
@@ -1411,8 +1432,9 @@ async function loginStudent() {
   message.textContent = "ຍິນດີຕ້ອນຮັບ! Login ສຳເລັດ.";
   showStudentDashboard(user);
 
-document.getElementById("authSection").style.display = "none";
+  document.getElementById("authSection").style.display = "none";
 }
+
 
 // Student Logout
 
