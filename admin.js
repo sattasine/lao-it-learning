@@ -174,15 +174,15 @@ checkAdmin().then((isAdmin) => {
 });
 window.filterRequests = function(status) {
   const cards = document.querySelectorAll(
-    ".admin-request-card"
+    "#requestList .admin-request-card"
   );
 
   cards.forEach(card => {
-    if (status === "all") {
-      card.style.display = "block";
-    } else {
-      card.style.display =
-        card.dataset.status === status ? "block" : "none";
-    }
+    const cardStatus = (card.dataset.status || "").trim().toLowerCase();
+
+    card.style.display =
+      status === "all" || cardStatus === status
+        ? ""
+        : "none";
   });
 };
