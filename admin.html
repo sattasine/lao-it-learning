@@ -16,6 +16,31 @@
     <p id="adminMessage"></p>
 
     <section id="adminPanel" hidden>
+      
+<div class="admin-stats">
+
+  <div class="admin-stat-card">
+    <span>📋 ຄຳຂໍທັງໝົດ</span>
+    <strong id="totalRequests">0</strong>
+  </div>
+
+  <div class="admin-stat-card">
+    <span>⏳ ລໍຖ້າກວດ</span>
+    <strong id="pendingRequests">0</strong>
+  </div>
+
+  <div class="admin-stat-card">
+    <span>✅ ອະນຸມັດແລ້ວ</span>
+    <strong id="approvedRequests">0</strong>
+  </div>
+
+  <div class="admin-stat-card">
+    <span>❌ ປະຕິເສດ</span>
+    <strong id="rejectedRequests">0</strong>
+  </div>
+
+</div>
+
       <h2>ລາຍການສະໝັກ Premium</h2>
       <button id="refreshRequests">🔄 ໂຫຼດລາຍການ</button>
       <div id="requestList"></div>
