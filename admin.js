@@ -142,13 +142,15 @@ async function loadPremiumRequests() {
     requestList.appendChild(card);
   }
 }
-
 adminLogoutBtn.addEventListener("click", async () => {
-  await supabaseClient.auth.signOut();
-  adminPanel.hidden = true;
-  adminLogoutBtn.hidden = true;
-  adminLoginBtn.hidden = false;
-  adminMessage.textContent = "ອອກຈາກລະບົບແລ້ວ";
+  const { error } = await supabaseClient.auth.signOut();
+
+  if (error) {
+    adminMessage.textContent = "Logout ບໍ່ສຳເລັດ";
+    return;
+  }
+
+  window.location.href = "index.html";
 });
 
 refreshRequests.addEventListener("click", loadPremiumRequests);
