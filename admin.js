@@ -80,7 +80,7 @@ async function loadPremiumRequests() {
   for (const item of data) {
     const card = document.createElement("div");
     card.className = "admin-request-card";
-
+    card.dataset.status = item.status;
     const info = document.createElement("p");
     info.textContent =
       "ຈຳນວນ: " + item.amount_lak +
@@ -172,3 +172,17 @@ refreshRequests.addEventListener("click", loadPremiumRequests);
 checkAdmin().then((isAdmin) => {
   if (isAdmin) loadPremiumRequests();
 });
+window.filterRequests = function(status) {
+  const cards = document.querySelectorAll(
+    ".admin-request-card"
+  );
+
+  cards.forEach(card => {
+    if (status === "all") {
+      card.style.display = "block";
+    } else {
+      card.style.display =
+        card.dataset.status === status ? "block" : "none";
+    }
+  });
+};
