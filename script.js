@@ -33,9 +33,7 @@ if (searchInput) {
 function openLesson(name) {
   const section = document.getElementById("lessonContent");
   const title = document.getElementById("lessonTitle");
-  const body = document.getElementById("lessonBody");
-
-  
+  const body = document.getElementById("lessonBody");  
 if (name === "network") {
   title.textContent = "🌐 Network Basic";
 
@@ -327,14 +325,11 @@ else if (name === "router") {
     <input type="radio" name="rq3" value="b">
     ສາຍໄຟຟ້າ
   </label><br>
-
   <label>
     <input type="radio" name="rq3" value="c">
     ຄື້ນສັນຍານໄຮ້ສາຍ
   </label>
-
   <br><br>
-
   <button onclick="checkRouterQuiz()">
     ກວດຄຳຕອບ
   </button>
@@ -344,8 +339,6 @@ else if (name === "router") {
 </div>
   `;
 }
-
-  
 else if (name === "support") {
   title.textContent = "🛠️ IT Support";
 
@@ -414,11 +407,8 @@ else if (name === "support") {
     <input type="radio" name="sq1" value="c">
     ອອກແບບເຮືອນ
   </label>
-
   <hr>
-
   <p>2. ຖ້າ Computer ບໍ່ມີ Internet ຄວນກວດຫຍັງກ່ອນ?</p>
-
   <label>
     <input type="radio" name="sq2" value="a">
     ປ່ຽນຈໍ Monitor
@@ -1266,19 +1256,15 @@ async function showScorePage() {
     scoreSection.style.display = "none";
     return;
   }
-
   scoreSection.style.display = "block";
   list.innerHTML = "ກຳລັງໂຫຼດຄະແນນ...";
   total.textContent = "";
-
   const { data: { user }, error: userError } =
     await supabaseClient.auth.getUser();
-
   if (userError || !user) {
     list.textContent = "ກະລຸນາ Login ກ່ອນເບິ່ງຄະແນນ";
     return;
   }
-
   const { data: scores, error } = await supabaseClient
     .from("quiz_scores")
     .select("course_name, score, total");
@@ -1288,10 +1274,8 @@ async function showScorePage() {
       "ໂຫຼດຄະແນນບໍ່ສຳເລັດ: " + error.message;
     return;
   }
-
   let totalScore = 0;
   let totalQuestions = 0;
-
   const courses = [
     "Computer Basic",
     "Network Basic",
@@ -1300,11 +1284,8 @@ async function showScorePage() {
     "Python Basic",
     "Web Development"
   ];
-
   let html = "";
-
   courses.forEach(function(course) {
-
     const result = scores.find(function(item) {
       return item.course_name === course;
     });
