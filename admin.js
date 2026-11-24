@@ -5,6 +5,7 @@ const adminPanel = document.getElementById("adminPanel");
 const requestList = document.getElementById("requestList");
 const refreshRequests = document.getElementById("refreshRequests");
 
+
 async function checkAdmin() {
   const { data: { user }, error } =
     await supabaseClient.auth.getUser();
@@ -12,7 +13,8 @@ async function checkAdmin() {
   if (error || !user) {
     adminPanel.hidden = true;
     adminLogoutBtn.hidden = true;
-    adminMessage.textContent = "ກະລຸນາ Login Admin";
+    adminMessage.textContent =
+      "ກະລຸນາ Login ຜ່ານໜ້ານັກຮຽນກ່ອນ";
     return false;
   }
 
@@ -24,14 +26,19 @@ async function checkAdmin() {
 
   if (roleError || !data) {
     adminPanel.hidden = true;
-    adminMessage.textContent = "ບັນຊີນີ້ບໍ່ມີສິດ Admin";
+    adminLogoutBtn.hidden = true;
+    adminMessage.textContent =
+      "ບັນຊີນີ້ບໍ່ມີສິດ Admin";
     return false;
   }
+
   adminLogoutBtn.hidden = false;
   adminPanel.hidden = false;
   adminMessage.textContent = "Login Admin ສຳເລັດ";
+
   return true;
 }
+
 
 async function loadPremiumRequests() {
   if (!(await checkAdmin())) return;
