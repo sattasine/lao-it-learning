@@ -475,3 +475,21 @@ footer {
   border-color: #2563eb;
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
 }
+.premium-status-card {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 5px solid #2563eb;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 18px 0;
+}
+
+.premium-status-card h3 {
+  margin-top: 0;
+  color: #1e3a8a;
+}
+
+.premium-status-card p {
+  margin-bottom: 6px;
+  font-size: 15px;
+}
