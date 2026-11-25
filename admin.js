@@ -109,7 +109,9 @@ if (userIds.length > 0) {
     const studentName =
   studentNames.get(item.user_id) ||
   "ບໍ່ພົບຊື່ນັກຮຽນ";
-
+card.dataset.studentName =
+  studentName.toLowerCase();
+    
 const info = document.createElement("p");
 info.textContent =
   "ນັກຮຽນ: " + studentName +
