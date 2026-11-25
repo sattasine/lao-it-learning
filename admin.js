@@ -218,3 +218,26 @@ window.filterRequests = function(status) {
         : "none";
   });
 };
+document
+  .getElementById("studentSearch")
+  .addEventListener("input", function() {
+
+    const keyword = this.value
+      .trim()
+      .toLowerCase();
+
+    const cards = document.querySelectorAll(
+      ".admin-request-card"
+    );
+
+    cards.forEach(card => {
+      const studentName =
+        card.dataset.studentName || "";
+
+      card.style.display =
+        studentName.includes(keyword)
+          ? "block"
+          : "none";
+    });
+
+  });
