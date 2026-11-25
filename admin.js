@@ -55,7 +55,31 @@ async function loadPremiumRequests() {
     console.error(error);
     return;
   }
+  // ດຶງຊື່ນັກຮຽນ
+const userIds = [
+  ...new Set(data.map(item => item.user_id).filter(Boolean))
+];
 
+let studentNames = new Map();
+
+if (userIds.length > 0) {
+  const { data: studentsData, error: studentsError } =
+    await supabaseClient
+      .from("students")
+      .select("id, full_name")
+      .in("id", userIds);
+
+  if (studentsError) {
+    console.error("Student lookup error:", studentsError);
+  } else {
+    studentNames = new Map(
+      studentsData.map(student => [
+        student.id,
+        student.full_name
+      ])
+    );
+  }
+}
   
   // ຄຳນວນຈຳນວນຄຳຂໍ
   document.getElementById("totalRequests").textContent =
@@ -81,10 +105,16 @@ async function loadPremiumRequests() {
     const card = document.createElement("div");
     card.className = "admin-request-card";
     card.dataset.status = item.status;
-    const info = document.createElement("p");
-    info.textContent =
-      "ຈຳນວນ: " + item.amount_lak +
-      " ກີບ | ສະຖານະ: " + item.status;
+
+    const studentName =
+  studentNames.get(item.user_id) ||
+  "ບໍ່ພົບຊື່ນັກຮຽນ";
+
+const info = document.createElement("p");
+info.textContent =
+  "ນັກຮຽນ: " + studentName +
+  " | ຈຳນວນ: " + item.amount_lak +
+  " ກີບ | ສະຖານະ: " + item.status;
 
     const date = document.createElement("p");
     date.textContent =
